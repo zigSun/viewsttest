@@ -1,0 +1,55 @@
+version: "3"
+services:
+  wiservice:
+    build: WIService/
+    command: node app.js
+    env_file:
+      - ".env"
+    environment:
+      - KAFKA_HOST=$KAFKA_HOST
+      - KAFKA_PORT=$KAFKA_PORT
+      - APP_PORT=$APP_PORT
+    volumes:
+      - "./data/storage:./storage"
+    ports:
+      - 1234:3000
+
+  dbservice:
+    build: DBService/
+    env_file:
+      - ".env"
+    environment: 
+      - DB_HOST = viewst_db
+      - DB_USER = $DB_USER
+      - DB_PASS = $DB_PASS
+      - DB_NAME = $DB_NAME
+      - KAFKA_HOST=$KAFKA_HOST
+      - KAFKA_PORT=$KAFKA_PORT
+      - WAIT_HOSTS= viewst_db
+    command: node index.js
+    networks:
+      - app-network
+
+  mysqldb:
+    image: mysql:latest
+    container_name: viewst_db
+    restart: always
+    env_file:
+        - ".env"
+    environment:
+        - MYSQL_DATABASE=$DB_NAME
+        - MYSQL_ROOT_USER=$DB_USER
+        - MYSQL_ROOT_PASSWORD=$DB_PASS
+        - MYSQL_USER=$DB_USER
+        - MYSQL_PASSWORD=$DB_PASS
+    ports:
+        - "5555:3306"
+    volumes:
+        - "./data/db/mysql:/var/lib/mysql"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+      

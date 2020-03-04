@@ -1,0 +1,15 @@
+{
+  "name": "dbservice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "kafka-node": "^5.0.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0"
+  }
+}

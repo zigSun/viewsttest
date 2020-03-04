@@ -1,0 +1,17 @@
+{
+  "name": "frontservice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Vlad Lisitsin",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "kafka-node": "^5.0.0",
+    "koa": "^2.11.0",
+    "koa-body": "^4.1.1",
+    "koa-router": "^8.0.8"
+  }
+}
